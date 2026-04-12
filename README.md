@@ -55,11 +55,11 @@ Exibir elementos em ordem FIFO
 🖥️ Menu do sistema
 
 ## O programa possui interface em terminal:
-´´´
+##
   1 → Fila
   2 → Pilha
   3 → Sair
-´´´
+##
 ## Dentro de cada estrutura há menus específicos para operação.
 
 ⚠️ Observações técnicas
