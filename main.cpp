@@ -2,13 +2,6 @@
 #include <stdlib.h>
 #define MAXSIZE 40
 
-/*
-desenvolver um algoritimo que possui uma fila circular e uma pilha aonde vai ter um menu
-para o usuario escolher se ele que fila ou quer pilha ou quer sair
-o usuario escolher pilha terá as operações de push , pop , mostrar sair
-já se user escolher fila terá operações de enqueue , dequeue , de enqueue(dequeue()) e sair
-
-*/
 struct PilhaStack
 {
     int dados[MAXSIZE];
@@ -53,12 +46,7 @@ void enqueue(struct Fila *f, int v)
         f->nitens++;
     }
 }
-/*
-já aqui o primeiro que entra na fila e o ultimo a sair e returna o elemento retirado por isso não
-é um (void) então inicio se incrementa para ser circular preciso de reinciar quando o inicio chegar
-na quantidade de elementos ele reicioa e preocura espaços vazios
 
-*/
 float dequeue(struct Fila *f)
 {
     int remo = f->dados[f->ini++];
