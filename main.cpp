@@ -1,10 +1,71 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #define MAXSIZE 40
 
+struct No
+{
+    float dados;
+    struct No *prox;
+};
+struct PilhaDinamica
+{
+    struct No *top;
+};
+void CriarPilha(struct PilhaDinamica *p)
+{
+    p->top = NULL;
+}
+
+void pushD(struct PilhaDinamica *p, float Valor)
+{
+    struct No *novo = (struct No *)malloc(sizeof(struct No));
+    if (novo == NULL)
+        printf("\n Erro de alocacao");
+    else
+    {
+        novo->dados = Valor;
+        novo->prox = p->top;
+        p->top = novo;
+    }
+}
+
+float popD(struct PilhaDinamica *p)
+{
+    float Valor;
+    if (p->top == NULL)
+        printf("\n Pilha Vazia!");
+    else
+    {
+        struct No *pops = p->top;
+        Valor = pops->dados;
+        p->top = pops->prox;
+        free(pops);
+    }
+    return Valor;
+}
+
+int PilhaVazia(struct PilhaDinamica *p)
+{
+    return (p->top == NULL);
+}
+
+void displaypilhad(struct PilhaDinamica *p)
+{
+    struct No *atual = p->top;
+    printf("\n Topo -> ");
+    while (atual != NULL)
+    {
+        printf("\n %.2f ", atual->dados);
+        atual = atual->prox;
+    }
+    printf("\n<- base");
+}
+
+// Pilha estatica sequncial
 struct PilhaStack
 {
-    int dados[MAXSIZE];
+    float dados[MAXSIZE];
     int top;
 };
 
@@ -15,6 +76,7 @@ void push(void);
 int pop(void);
 void display(void);
 
+// Fila dinamica sequencial
 struct Fila
 {
     int capacidade;
@@ -90,13 +152,14 @@ int main()
 
     while (true)
     {
-        printf("\n -= Fila -=");
-        printf("\n 1 ----> fila ");
-        printf("\n 2 ----> Pilha");
-        printf("\n 3 ----> sair");
+        printf("\n 1 ----> fila dinamica encadeada");
+        printf("\n 2 ----> Pilha estatica sequencial");
+        printf("\n 3 ----> Pilha Dinamica encadeada ");
+        printf("\n 4 ----> sair");
+
         printf("\n Digite opcao: ");
         scanf("%d", &opcaofp);
-        if (opcaofp == 3)
+        if (opcaofp == 4)
         {
             break;
         }
@@ -109,6 +172,7 @@ int main()
             criar(&fila, capa);
             while (true)
             {
+                printf("\n -= Fila -=");
                 printf("\n 1 ---> enqueue");
                 printf("\n 2 ---> dequeue");
                 printf("\n 3 ---> Mostrar");
@@ -149,7 +213,7 @@ int main()
         case 2:
             while (true)
             {
-                printf("\n -= Pila =-");
+                printf("\n -= Pilha =-");
                 printf("\n 1 ---> push");
                 printf("\n 2 ---> pop");
                 printf("\n 3 ---> display");
@@ -173,6 +237,41 @@ int main()
                     return 0;
                 }
             }
+        case 3:
+            float Valor;
+            int opd;
+            struct PilhaDinamica p;
+            CriarPilha(&p);
+            while (true)
+            {
+                printf("\n -=== Pilha Dinamica encadeada ===-");
+                printf("\n 1 ---> push ");
+                printf("\n 2 ---> pop ");
+                printf("\n 3 ---> Display");
+                printf("\n 4 ---> Sair");
+
+                printf("\n Informe opcao desejada: ");
+                scanf("%d", &opd);
+
+                switch (opd)
+                {
+                case 1:
+                    printf("\n Informe elemento: ");
+                    scanf("%f", &Valor);
+                    pushD(&p, Valor);
+                    break;
+                case 2:
+                    Valor = popD(&p);
+                    printf("\n %.2f elemento removido", Valor);
+                    break;
+                case 3:
+                    printf("\n Elementos da pilha => ");
+                    displaypilhad(&p);
+                    break;
+                case 4:
+                    return 0;
+                }
+            }
         }
     }
 
@@ -181,26 +280,26 @@ int main()
 
 void push()
 {
-    int num;
+    float num;
     if (p.top == (MAXSIZE - 1))
         printf("\n Pilha esta cheia !");
     else
     {
         printf("\n informe elemento desejado: ");
-        scanf("%d", &num);
+        scanf("%f", &num);
         p.dados[++p.top] = num;
     }
 }
 
 int pop()
 {
-    int num;
+    float num;
     if (p.top == -1)
         printf("\n Pilha esta vazia !");
     else
     {
         num = p.dados[p.top];
-        printf("\n elemento %d removido", p.dados[p.top]);
+        printf("\n elemento %.2f removido", p.dados[p.top]);
         p.top--;
     }
     return num;
@@ -212,7 +311,7 @@ void display()
         printf("\n Pilha esta vazia !");
     for (int i = p.top; i >= 0; i--)
     {
-        printf("\n %d elementos da pilha", p.dados[i]);
+        printf("\n %.2f elementos da pilha", p.dados[i]);
     }
     printf("\n\n");
 }
