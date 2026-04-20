@@ -55,7 +55,7 @@ Exibir elementos em ordem FIFO
 🖥️ Menu do sistema
 
 ## O programa possui interface em terminal:
-```mermaid
+```
   1 ----> Fila estatica sequencial
   2 ----> Fila dinamica encadedada
   3 ----> Pilha estatica sequecial
