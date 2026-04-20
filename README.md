@@ -95,5 +95,9 @@ Entender comportamento de memória
 Praticar lógica com ponteiros e arrays
 Simular operações fundamentais de pilha e fila
 
+## Exemplo 
+Aqui está a representação visual das estruturas:
+![Diagrama Pilha e Fila](docs/pilha_fila.png)
+
 👨‍💻 Linguagem utilizada
 C (C99)
