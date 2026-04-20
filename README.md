@@ -55,11 +55,24 @@ Exibir elementos em ordem FIFO
 🖥️ Menu do sistema
 
 ## O programa possui interface em terminal:
-##
-  1 → Fila
-  2 → Pilha
-  3 → Sair
-##
+```mermaid
+  1 ----> Fila estatica sequencial
+  2 ----> Fila dinamica encadedada
+  3 ----> Pilha estatica sequecial
+  4 ----> Pilha Dinamica encadeada
+  5 ----> sair
+    operações das filas =>
+      1 ---> enqueue
+      2 ---> dequeue
+      3 ----> display
+      4 ----> sair
+    operações das Pilhas =>
+      1 ---> push
+      2 ---> pop
+      3 ---> display
+      4 ---> sair
+
+```
 ## Dentro de cada estrutura há menus específicos para operação.
 
 ⚠️ Observações técnicas
