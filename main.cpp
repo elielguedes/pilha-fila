@@ -3,6 +3,80 @@
 #include <stdbool.h>
 #define MAXSIZE 40
 
+// Fila dinamica encadeada
+struct no
+{
+    float Dados;
+    struct no *proxs;
+};
+struct FilaDinamica
+{
+    struct no *inicio;
+    struct no *fims;
+    int item;
+};
+
+void CriarFila(struct FilaDinamica *d)
+{
+    d->inicio = 0;
+    d->fims = NULL;
+    d->item = 0;
+}
+
+void EnqueueD(struct FilaDinamica *d, float Valor)
+{
+    struct no *nov = (struct no *)malloc(sizeof(struct no));
+    if (nov == NULL)
+        printf("\n Erro de alocacao ");
+    nov->Dados = Valor;
+    nov->proxs = NULL;
+    if (d->inicio == NULL)
+    {
+        d->inicio = nov;
+        d->fims = nov;
+    }
+    else
+    {
+        d->fims->proxs = nov;
+        d->fims = nov;
+    }
+    d->item++;
+}
+
+float DequeueD(struct FilaDinamica *d)
+{
+    if (d->inicio == NULL)
+    {
+        printf("\n Fila Vazia !");
+        return -1;
+    }
+    struct no *temp = d->inicio;
+    float Valor = temp->Dados;
+    d->inicio = d->inicio->proxs;
+    if (d->inicio == NULL)
+        d->inicio = NULL;
+
+    d->item--;
+    return Valor;
+}
+
+void mostrar(struct FilaDinamica *d)
+{
+    if (d->inicio == NULL)
+    {
+        printf("\n Fila esta Vazia !");
+    }
+    struct no *aux = d->inicio;
+    printf("\n Elementos da fila: ", d->item);
+    for (int i = 0; i < d->item; i++)
+    {
+        printf("\n %.2f", aux->Dados);
+        aux = aux->proxs;
+    }
+    printf("\n");
+}
+
+// Pilha dinamica encadeada
 struct No
 {
     float dados;
@@ -147,19 +221,21 @@ int main()
     p.top = -1;
     int opcaofp;
     int capa, opcao, opcaop;
-    float valor;
+    float valor, Valor;
     struct Fila fila;
+    struct FilaDinamica fd;
 
     while (true)
     {
-        printf("\n 1 ----> fila dinamica encadeada");
-        printf("\n 2 ----> Pilha estatica sequencial");
-        printf("\n 3 ----> Pilha Dinamica encadeada ");
-        printf("\n 4 ----> sair");
+        printf("\n 1 ----> fila estatica sequencial");
+        printf("\n 2 ----> Fila dinamica encadeada");
+        printf("\n 3 ----> Pilha estatica sequencial");
+        printf("\n 4 ----> Pilha Dinamica encadeada ");
+        printf("\n 5 ----> sair");
 
         printf("\n Digite opcao: ");
         scanf("%d", &opcaofp);
-        if (opcaofp == 4)
+        if (opcaofp == 5)
         {
             break;
         }
@@ -172,7 +248,7 @@ int main()
             criar(&fila, capa);
             while (true)
             {
-                printf("\n -= Fila -=");
+                printf("\n -= Fila estatica sequencial -=");
                 printf("\n 1 ---> enqueue");
                 printf("\n 2 ---> dequeue");
                 printf("\n 3 ---> Mostrar");
@@ -211,9 +287,42 @@ int main()
             }
 
         case 2:
+            int opcaofd;
+            CriarFila(&fd);
             while (true)
             {
-                printf("\n -= Pilha =-");
+                printf("\n -= Fila Dinamica encadeada");
+                printf("\n 1 ---> enqueue");
+                printf("\n 2 ---> dequeue");
+                printf("\n 3 ---> display");
+                printf("\n 4 ---> Sair");
+
+                printf("\n Escolha opcao: ");
+                scanf("%d", &opcaofd);
+                switch (opcaofd)
+                {
+                case 1:
+                    printf("\n Digite elemento: ");
+                    scanf("%f", &Valor);
+                    EnqueueD(&fd, Valor);
+                    break;
+                case 2:
+                    Valor = DequeueD(&fd);
+                    printf("\n %.2f elemento removido !", Valor);
+                    break;
+                case 3:
+                    mostrar(&fd);
+                    break;
+                case 4:
+                    return 0;
+                default:
+                    printf("\n Opcao invalida tente novamente !");
+                }
+            }
+        case 3:
+            while (true)
+            {
+                printf("\n -= Pilha estatica sequencial =-");
                 printf("\n 1 ---> push");
                 printf("\n 2 ---> pop");
                 printf("\n 3 ---> display");
@@ -237,7 +346,7 @@ int main()
                     return 0;
                 }
             }
-        case 3:
+        case 4:
             float Valor;
             int opd;
             struct PilhaDinamica p;
