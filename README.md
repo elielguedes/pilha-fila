@@ -66,7 +66,7 @@ Exibir elementos em ordem FIFO
   2 ---> dequeue
   3 ----> display
   4 ----> sair
-operacoes das Pilhas =>
+  operacoes das Pilhas =>
   1 ---> push
   2 ---> pop
   3 ---> display
